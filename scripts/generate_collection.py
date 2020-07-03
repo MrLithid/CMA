@@ -1,4 +1,5 @@
 import sqlite3
+import pathlib
 import json
 
 DATABASE = "lib/CMA-test/cma-artworks.db"
@@ -55,6 +56,8 @@ for artworks in results(ARTWORK_QUERY):
     }
 
     art.append(art_object)
+
+pathlib.Path('src/json').mkdir(parents=True, exist_ok=True)
 
 with open('src/json/collection.json', 'w') as result:
     result.write(json.dumps(art))
