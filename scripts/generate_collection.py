@@ -40,6 +40,13 @@ def results(query):
 
 art = []
 for artworks in results(ARTWORK_QUERY):
+    print()
+    print("Keys:")
+    print(artworks.keys())
+    print()
+    print("Values:")
+    print(list(artworks))
+    print()
     creators = results(CREATOR_QUERY % artworks['id'])
 
     creators_list = []
