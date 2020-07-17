@@ -10,10 +10,10 @@ DATABASE = Path(databaseFileName)
 
 ARTWORK_QUERY = '''
 SELECT DISTINCT
-artwork.id,
-artwork.accession_number,
-artwork.title,
-artwork.tombstone,
+artwork.id AS id,
+artwork.accession_number AS accession_number,
+artwork.title AS title,
+artwork.tombstone AS tombstone,
 department.name AS department_name
 FROM artwork
 JOIN (department JOIN artwork__department ON department.id = artwork__department.department_id) ON artwork.id = artwork__department.artwork_id
@@ -21,8 +21,8 @@ JOIN (department JOIN artwork__department ON department.id = artwork__department
 
 CREATOR_QUERY = '''
 SELECT DISTINCT
-creator.role,
-creator.description
+creator.role AS role,
+creator.description AS description
 FROM artwork__creator
 JOIN creator ON creator.id = artwork__creator.creator_id
 WHERE artwork__creator.artwork_id = '%s'
