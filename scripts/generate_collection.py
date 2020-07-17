@@ -1,8 +1,12 @@
 import sqlite3
-import pathlib
+from pathlib import Path, PureWindowsPath
 import json
 
-DATABASE = "lib/CMA-test/cma-artworks.db"
+databaseFileName = PureWindowsPath("lib\\CMA-test\\cma-artworks.db")
+JSON_DIR_PATH = PureWindowsPath("src\\json")
+COLLECTION_FILE = Path(JSON_DIR_PATH) / 'collection.json'
+
+DATABASE = Path(databaseFileName)
 
 ARTWORK_QUERY = '''
 SELECT DISTINCT
@@ -25,7 +29,7 @@ WHERE artwork__creator.artwork_id = '%s'
 '''
 
 def results(query):
-    connection = sqlite3.connect(DATABASE)
+    connection = sqlite3.connect(str(DATABASE))
     connection.row_factory = sqlite3.Row
     db = connection.cursor()
     result = db.execute(query).fetchall()
@@ -57,7 +61,8 @@ for artworks in results(ARTWORK_QUERY):
 
     art.append(art_object)
 
-pathlib.Path('src/json').mkdir(parents=True, exist_ok=True)
 
-with open('src/json/collection.json', 'w') as result:
+Path(JSON_DIR_PATH).mkdir(parents=True, exist_ok=True)
+
+with open(str(COLLECTION_FILE), 'w') as result:
     result.write(json.dumps(art))
