@@ -38,19 +38,23 @@ def results(query):
 
     return result
 
-art = []
-for artworks in results(ARTWORK_QUERY):
+def print_results(result):
     print()
     print("Keys:")
-    print(artworks.keys())
+    print(result.keys())
     print()
     print("Values:")
-    print(list(artworks))
+    print(list(result))
     print()
+
+art = []
+for artworks in results(ARTWORK_QUERY):
+    print_results(artworks)
     creators = results(CREATOR_QUERY % artworks['id'])
 
     creators_list = []
     for x in creators:
+        print_results(x)
         creator_object = {
         "role": x["role"],
         "description": x["description"]
